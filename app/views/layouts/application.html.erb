@@ -9,8 +9,12 @@
   </head>
 
   <body>
-    <%= render 'shared/header' %>
-    <%= yield %>
-    <%= render 'shared/footer' %>
+    <div class="site-wrapper">
+      <div class="site-wrapper-inner">
+        <div class="cover-container">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
