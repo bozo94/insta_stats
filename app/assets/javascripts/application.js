@@ -15,3 +15,28 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require_tree .
+
+// Login ajax event handlers
+$(document).ready(function() {
+  $('#sign_in_user')
+  .bind('ajax:success', function(evt, data, status, xhr) {
+    show_success();
+  })
+  .bind("ajax:error", function(evt, xhr, status, error) {
+    show_error();
+  });
+
+  function show_success() {
+    $('div.login-attempt-status').empty();
+    $('div.login-attempt-status').append("You are now logged in.<br />Page will be refreshed in 2 seconds.");
+    setTimeout(function(){
+      location.reload();
+    }, 2000);
+  }
+
+  function show_error() {
+    $('div.login-attempt-status').empty();
+    $('div.login-attempt-status').append("Your email or password is wrong.");
+  }
+
+});

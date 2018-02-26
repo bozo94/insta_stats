@@ -2,7 +2,12 @@
   <div class="inner">
     <h3 class="masthead-brand">LOGO</h3>
     <nav class="nav nav-masthead">
-      <a class="nav-link" href="#">REGISTER/LOGIN</a>
+      <% if user_signed_in? %>
+        <%= link_to('Logout', destroy_user_session_path, class:"nav-link", method: :delete) %>
+         <img src="<%= current_user.image %>">
+      <% else %>
+        <%= link_to('REGISTER/LOGIN', '#', class:"nav-link", data: {target: '#login-modal', toggle: 'modal'}) %>
+      <% end %>
     </nav>
   </div>
 </div>
@@ -24,3 +29,126 @@
     <p>footer</p>
   </div>
 </div>
+
+<!-- Modal login -->
+<div class="modal fade lg" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+      <div class="modal-content loginmodal-container">
+        <%= link_to user_facebook_omniauth_authorize_path, class: "btn btn-block btn-social btn-facebook" do %>
+           <span class="fa fa-facebook"></span> Sign in with Facebook
+        <% end %>
+        <%= link_to user_twitter_omniauth_authorize_path, class: "btn btn-block btn-social btn-twitter" do %>
+           <span class="fa fa-twitter"></span> Sign in with Twitter
+        <% end %>
+        <%= link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-block btn-social btn-google" do %>
+           <span class="fa fa-google"></span> Sign in with Google
+        <% end %>
+       <br>
+        <div class="login-attempt-status text-center"></div>
+        <%= form_for(resource, :as => resource_name,
+                     :url => session_path(resource_name) ,
+                     :html => {:id => "sign_in_user"},
+                     :format => :json,
+                     :remote => true ) do |f| %>
+          <%= f.email_field :email, placeholder: 'email' %>
+          <%= f.password_field :password, placeholder: "password" %>
+          <%= f.submit "Sign in", class: 'login loginmodal-submit' %>
+        <% end %>
+        <div class="login-help">
+          <a href="javascript:;" class='open-register-modal'>Register</a> - <a href="javascript:;" class="open-password-modal">Forgot Password</a>
+        </div>
+      </div>
+
+
+  </div>
+</div>
+
+<!-- Modal register -->
+<div class="modal fade lg" id="register-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+      <div class="modal-content loginmodal-container">
+        <%= link_to user_facebook_omniauth_authorize_path do %>
+           <span class="fa fa-facebook"></span> Sign in with Facebook
+        <% end %>
+        <%= link_to user_twitter_omniauth_authorize_path do %>
+           <span class="fa fa-twitter"></span> Sign in with Twitter
+        <% end %>
+        <%= link_to user_google_oauth2_omniauth_authorize_path do %>
+           <span class="fa fa-google"></span> Sign in with Google
+        <% end %>
+       <br>
+        <div class="login-attempt-status text-center"></div>
+        <%= form_for(resource, :as => resource_name,
+                     :url => registration_path(resource_name) ,
+                     :html => {:id => "sign_up_user"},
+                     :format => :js,
+                     :remote => true ) do |f| %>
+          <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+          <%= f.email_field :email, placeholder: 'email', id: 'register_user_email' %>
+          <span style="color: red;" class="error" id="email_error"></span>
+          <%= f.password_field :password, placeholder: "password", id: 'register_user_password' %>
+          <span style="color: red;" class="error" id="password_error"></span>
+          <%= f.password_field :password_confirmation, placeholder: "password confirmation", id: 'register_user_password_confirmation' %>
+          <span style="color: red;" class="error" id="password_confirmation_error"></span>
+          <%= f.submit "Sign up", class: 'login loginmodal-submit' %>
+        <% end %>
+        <div class="login-help">
+          <a href="javascript:;" class="open-login-modal">Login</a> - <a href="javascript:;" class="open-password-modal">Forgot Password</a>
+        </div>
+      </div>
+
+
+  </div>
+</div>
+
+<!-- Modal forgot password -->
+<div class="modal fade lg" id="password-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+
+      <div class="modal-content loginmodal-container">
+        <%= link_to user_facebook_omniauth_authorize_path do %>
+           <span class="fa fa-facebook"></span> Sign in with Facebook
+        <% end %>
+        <%= link_to user_twitter_omniauth_authorize_path do %>
+           <span class="fa fa-twitter"></span> Sign in with Twitter
+        <% end %>
+        <%= link_to user_google_oauth2_omniauth_authorize_path do %>
+           <span class="fa fa-google"></span> Sign in with Google
+        <% end %>
+       <br>
+        <div class="login-attempt-status text-center"></div>
+        <%= form_for(resource, :as => resource_name,
+                     :url => password_path(resource_name) ,
+                     :html => {:id => "password_recovery"},
+                     :format => :json,
+                     :remote => true ) do |f| %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", id: 'forgot_password', placeholder: "email" %>
+          <%= f.submit "Send me reset password instructions", class: 'login loginmodal-submit' %>
+        <% end %>
+        <div class="login-help">
+          <a href="javascript:;" class="open-login-modal">Login</a> - <a href="javascript:;" class='open-register-modal'>Register</a>
+        </div>
+      </div>
+
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.open-register-modal').click(function(){
+      $('.modal:visible').modal('toggle')
+      $('#register-modal').modal('show')
+    })
+    $('.open-login-modal').click(function(){
+      $('.modal:visible').modal('toggle')
+      $('#login-modal').modal('show')
+    })
+    $('.open-password-modal').click(function(){
+      $('.modal:visible').modal('toggle')
+      $('#password-modal').modal('show')
+    })
+  })
+</script>

@@ -1,0 +1,12 @@
+$('.error').empty();
+<% if @resource.errors.any? %>
+  <% @resource.errors.messages.each do |error| %>
+    $('#'+'<%= error[0].to_s %>'+'_error').append('<%= error[1][0] %>');
+  <% end %>
+<% else %>
+  $('div.login-attempt-status').empty();
+  $('div.login-attempt-status').append("You are now registered and logged in.<br />Page will be refreshed in 2 seconds.");
+  setTimeout(function(){
+    location.reload();
+  }, 2000);
+<% end %>
