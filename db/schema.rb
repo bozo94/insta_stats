@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180206173929) do
+ActiveRecord::Schema.define(version: 20180227054800) do
+
+  create_table "statistic_users", force: :cascade do |t|
+    t.string "nick"
+    t.string "slug"
+    t.string "instagram_id"
+  end
+
+  create_table "statistics", force: :cascade do |t|
+    t.integer "statistic_user_id"
+    t.integer "followers_count"
+    t.integer "followings_count"
+    t.integer "media_count"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

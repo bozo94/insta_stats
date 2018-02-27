@@ -14,6 +14,7 @@
 //= require jquery3
 //= require popper
 //= require bootstrap-sprockets
+//= require loading_bar.min
 //= require_tree .
 
 // Login ajax event handlers
@@ -40,3 +41,4 @@ $(document).ready(function() {
   }
 
 });
+
