@@ -16,6 +16,8 @@ ActiveRecord::Schema.define(version: 20180227054800) do
     t.string "nick"
     t.string "slug"
     t.string "instagram_id"
+    t.string "name"
+    t.string "image"
   end
 
   create_table "statistics", force: :cascade do |t|
@@ -23,6 +25,8 @@ ActiveRecord::Schema.define(version: 20180227054800) do
     t.integer "followers_count"
     t.integer "followings_count"
     t.integer "media_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

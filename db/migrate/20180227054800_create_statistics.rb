@@ -5,6 +5,8 @@ class CreateStatistics < ActiveRecord::Migration[5.1]
       t.integer :followers_count
       t.integer :followings_count
       t.integer :media_count
+
+      t.timestamps
     end
   end
 end

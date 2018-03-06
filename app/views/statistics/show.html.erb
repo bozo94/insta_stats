@@ -1,4 +1,4 @@
-<div id="wrapper" class="active">
+<div id="wrapper" class="active" style="background-color: #f1f1f1;">
   <div id="sidebar-wrapper">
     <ul id="sidebar_menu" class="sidebar-nav">
       <li class="sidebar-brand">
@@ -23,16 +23,7 @@
   </script>
   <div id="page-content-wrapper">
 
-
-
-
-
-
-
-
-
-
-<div class="container">
+    <div class="container">
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4 statistic-container">
@@ -40,7 +31,7 @@
             <div class="row float-right" style="padding-right: 10px;">?</div>
             <div style="padding: 40px 40px;">
               <span class="gray-text">followers score</span><br />
-              <span style="font-size: 60px;"> 77</span>
+              <span style="font-size: 60px;" id="followers-score-count" data-followers-score="77">77</span>
               <span style="font-size: 20px;" class="gray-text"> points</span>
             </div>
 
@@ -145,69 +136,7 @@
               </thead>
               <tbody>
                 <tr style="height: 20px;"><td></td></tr>
-                <tr>
-                  <td>02-01-2018</td>
-                  <td>4320</td>
-                  <td>+32</td>
-                  <td>3800</td>
-                  <td>+44</td>
-                  <td>234</td>
-                  <td>+21</td>
-                </tr>
-                <tr>
-                  <td>02-01-2018</td>
-                  <td>4320</td>
-                  <td>+32</td>
-                  <td>3800</td>
-                  <td>+44</td>
-                  <td>234</td>
-                  <td>+21</td>
-                </tr>
-                <tr>
-                  <td>02-01-2018</td>
-                  <td>4320</td>
-                  <td>+32</td>
-                  <td>3800</td>
-                  <td>+44</td>
-                  <td>234</td>
-                  <td>+21</td>
-                </tr>
-                <tr>
-                  <td>02-01-2018</td>
-                  <td>4320</td>
-                  <td>+32</td>
-                  <td>3800</td>
-                  <td>+44</td>
-                  <td>234</td>
-                  <td>+21</td>
-                </tr>
-                <tr>
-                  <td>02-01-2018</td>
-                  <td>4320</td>
-                  <td>+32</td>
-                  <td>3800</td>
-                  <td>+44</td>
-                  <td>234</td>
-                  <td>+21</td>
-                </tr>
-                <tr>
-                  <td>02-01-2018</td>
-                  <td>4320</td>
-                  <td>+32</td>
-                  <td>3800</td>
-                  <td>+44</td>
-                  <td>234</td>
-                  <td>+21</td>
-                </tr>
-                <tr>
-                  <td>02-01-2018</td>
-                  <td>4320</td>
-                  <td>+32</td>
-                  <td>3800</td>
-                  <td>+44</td>
-                  <td>234</td>
-                  <td>+21</td>
-                </tr>
+                <%= raw statistics_row @stat_user %>
               </tbody>
             </table>
             </div>
@@ -228,29 +157,29 @@
           <div class="statistic-data last-three">
             <div class="user-info">
               <div>
-                <b>@roy_selbach</b>
+                <b>@<%= @stat_user.nick %></b>
               </div>
-              <table>
+              <table style="font-size: 13px;">
+                <tr style="height: 20px;"><td></td></tr>
                 <tr>
                   <td><b>Full Name</b></td>
-                  <td>Roy Selbach</td>
+                  <td><%= @stat_user.name %></td>
                 </tr>
                 <tr>
                   <td><b>Id</b></td>
-                  <td>22346545463</td>
+                  <td><%= @stat_user.instagram_id %></td>
                 </tr>
-                <tr style="height: 10px;"><td></td></tr>
                 <tr>
                   <td><b>Following</b></td>
-                  <td>1130</td>
+                  <td><%= @stat_user.statistics.last.followings_count %></td>
                 </tr>
                 <tr>
                   <td><b>Followers</b></td>
-                  <td>1876</td>
+                  <td><%= @stat_user.statistics.last.followers_count %></td>
                 </tr>
                 <tr>
                   <td><b>Uploaded</b></td>
-                  <td>271</td>
+                  <td><%= @stat_user.statistics.last.media_count %></td>
                 </tr>
               </table>
             </div>
@@ -258,7 +187,7 @@
        </div>
         <div class="col-md-3 statistic-container">
           <div class="statistic-data last-three">
-            <img src="https://vignette.wikia.nocookie.net/sote-rp/images/c/c4/User-placeholder.png/revision/latest?cb=20150624004222"/>
+            <img class="user-placeholder" src="<%= @stat_user.image %>"/>
           </div>
         </div>
       </div>
